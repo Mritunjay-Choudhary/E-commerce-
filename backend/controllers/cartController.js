@@ -27,12 +27,9 @@ export const addCartItem = asyncHandler(async (req, res) => {
     !Number.isInteger(count) ||
     count < 1
   )
-    return res
-      .status(400)
-      .json({
-        message:
-          "A valid productId and positive integer quantity are required.",
-      });
+    return res.status(400).json({
+      message: "A valid productId and positive integer quantity are required.",
+    });
   const product = await Product.findOne({ _id: productId, isActive: true });
   if (!product) return res.status(404).json({ message: "Product not found." });
   const cart = await getOrCreateCart(req.user._id);
